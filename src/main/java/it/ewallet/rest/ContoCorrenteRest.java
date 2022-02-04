@@ -31,9 +31,10 @@ import it.ewallet.entity.Movimento;
 //senza passare anche il campo operazione che si setta in automatico una volta
 //impostato l'url del operazione. esempio per prelievo --->>POST http://localhost:8080/ewallet/rest/conto/preleva
 // e poi
+////****PER PRELEVARE O DEPOSITARE
 /*{
 	"iban":"iban da selezionare",
-	"importo":"importo da detrarre"
+	"importo":"importo da detrarre o aggiungere"
 	
 }*/
 
@@ -43,7 +44,7 @@ import it.ewallet.entity.Movimento;
 public class ContoCorrenteRest {
 
 	private static ArrayList<ContoCorrente> conti = new ArrayList<>();
-
+	
 	@GET
 	@Path("/{iban}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -71,13 +72,13 @@ public class ContoCorrenteRest {
 	}
 
 	@DELETE
-	@Path("/")
+	@Path("/{iban}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response removeContoCorrente(ContoCorrente c) {
+	public Response removeContoCorrente(@PathParam("iban") String iban) {
 
 		for (ContoCorrente con : conti) {
 
-			if (con.getIban().equals(c.getIban())) {
+			if (con.getIban().equals(iban)) {
 
 				conti.remove(con);
 
@@ -150,7 +151,7 @@ public class ContoCorrenteRest {
 					c.setSaldo(c.getSaldo() - mov.getImporto());
 					c.getMovimenti().add(m);
 
-					return Response.status(200).entity("prelievo avenuto con successo").build();
+					return Response.status(200).entity("prelievo effettuato! saldo attuale: "+c.getSaldo()).build();
 				} else {
 
 					return Response.status(400).entity("mancanza di fondi sufficenti sul conto").build();
@@ -180,7 +181,7 @@ public class ContoCorrenteRest {
 				c.setSaldo(c.getSaldo() + m.getImporto());
 				c.getMovimenti().add(m);
 
-				return Response.status(200).entity("deposito avenuto con successo").build();
+				return Response.status(200).entity("deposito effettuato! saldo attuale: "+c.getSaldo()).build();
 			}
 
 		}
