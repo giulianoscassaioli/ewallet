@@ -3,13 +3,14 @@ package it.ewallet.rest;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.websocket.server.PathParam;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -26,7 +27,15 @@ import it.ewallet.entity.Movimento;
 //meno che la dataCreazione che viene generata in automantico
 //stessa cosa anche quando si fanno dei prelievi o depositi sui conti
 //la data dei singoli movimenti viene generata in automatico
-
+//Quando si passa il movimento su postman va passato solamente l'importo e l'iban 
+//senza passare anche il campo operazione che si setta in automatico una volta
+//impostato l'url del operazione. esempio per prelievo --->>POST http://localhost:8080/ewallet/rest/conto/preleva
+// e poi
+/*{
+	"iban":"iban da selezionare",
+	"importo":"importo da detrarre"
+	
+}*/
 
 
 
@@ -36,10 +45,11 @@ public class ContoCorrenteRest {
 	private static ArrayList<ContoCorrente> conti = new ArrayList<>();
 
 	@GET
-	@Path("/get/{iban}")
+	@Path("/{iban}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public ContoCorrente getContoCorrente(@PathParam("iban") String iban) {
 
+		System.out.println(iban);
 		for (ContoCorrente con : conti) {
 
 			if (con.getIban().equals(iban)) {

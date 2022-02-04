@@ -3,6 +3,7 @@ package it.ewallet.entity;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class ContoCorrente {
 	
@@ -48,6 +49,19 @@ public class ContoCorrente {
 	public void setMovimenti(ArrayList<Movimento> movimenti) {
 		this.movimenti = movimenti;
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ContoCorrente other = (ContoCorrente) obj;
+		return Objects.equals(iban, other.iban);
+	}
+	
 	
 	
 	
