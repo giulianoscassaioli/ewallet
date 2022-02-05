@@ -25,6 +25,13 @@ import it.ewallet.entity.Movimento;
 //DEPOSITO----->>>   impostando POST su postman poi --->> http://localhost:8080/ewallet/rest/conto/deposita
 //Per creare un conto bisogna passare i campi iban,intestatario,saldo, al json su postMan
 //meno che la dataCreazione che viene generata in automantico
+//***********ES CREAZIONE CONTO**********
+/*{
+"iban":"iban del conto",
+"saldo":importo da detrarre o aggiungere,
+"intestatario":"nome del intestatario"
+
+}*/
 //stessa cosa anche quando si fanno dei prelievi o depositi sui conti
 //la data dei singoli movimenti viene generata in automatico
 //Quando si passa il movimento su postman va passato solamente l'importo e l'iban 
@@ -34,7 +41,7 @@ import it.ewallet.entity.Movimento;
 ////****PER PRELEVARE O DEPOSITARE
 /*{
 	"iban":"iban da selezionare",
-	"importo":"importo da detrarre o aggiungere"
+	"importo":importo da detrarre o aggiungere
 	
 }*/
 
