@@ -58,7 +58,11 @@ public class ContoCorrenteRest {
 				return con;
 			}
 		}
-		return null;
+		
+		ContoCorrente c =new ContoCorrente();
+		c.setIban("il conto corrente che hai cercato non esiste");
+		c.setDataCreazione(null);
+		return c;
 
 	}
 
