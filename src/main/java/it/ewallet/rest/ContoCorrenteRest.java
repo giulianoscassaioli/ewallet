@@ -141,6 +141,14 @@ public class ContoCorrenteRest {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response preleva(Movimento mov) {
 
+		if(mov.getImporto()==0) {
+			return Response.status(400).entity("devi inserire un importo superiore a 0").build();
+		}
+		
+		if(mov.getImporto()<0) {
+			return Response.status(400).entity("inserire un importo non negativo").build();
+		}
+		
 		Movimento m = null;
 
 		for (ContoCorrente c : conti) {
@@ -173,6 +181,14 @@ public class ContoCorrenteRest {
 	@Path("/deposita")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response depostita(Movimento mov) {
+		if(mov.getImporto()==0) {
+			return Response.status(400).entity("devi inserire un importo superiore a 0").build();
+		}
+		
+		if(mov.getImporto()<0) {
+			return Response.status(400).entity("inserire un importo non negativo").build();
+		}
+		
 		Movimento m=null;
 		for (ContoCorrente c : conti) {
 			if (c.getIban().equals(mov.getIban())) {
